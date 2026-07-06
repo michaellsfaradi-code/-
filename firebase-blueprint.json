@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "Bot": {
+      "title": "Bot",
+      "description": "A workflow/bot definition.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "goal": { "type": "string" },
+        "url": { "type": "string" },
+        "speed": { "type": "number" },
+        "userId": { "type": "string" },
+        "isShared": { "type": "boolean" },
+        "steps": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "goal", "url", "speed", "userId", "steps", "createdAt", "updatedAt"]
+    },
+    "ExecutionLog": {
+      "title": "ExecutionLog",
+      "description": "Log of a bot execution",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "botId": { "type": "string" },
+        "status": { "type": "string" },
+        "durationMs": { "type": "number" },
+        "stepsRan": { "type": "number" },
+        "totalSteps": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["userId", "botId", "status", "durationMs", "stepsRan", "totalSteps", "timestamp"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Chat log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "sender": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "botPreset": { "type": "object" }
+      },
+      "required": ["userId", "text", "sender", "timestamp"]
+    },
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "Global system configuration",
+      "type": "object",
+      "properties": {
+        "developerPluginHtml": { "type": "string" },
+        "globalSyncEnabled": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["developerPluginHtml"]
+    }
+  },
+  "firestore": {
+    "system_config/{configId}": {
+      "schema": { "$ref": "#/entities/SystemConfig" },
+      "description": "Global system configurations"
+    },
+    "global_sync_tables/{docId}": {
+      "schema": { "type": "object" },
+      "description": "Broadcasted global table sync collection"
+    },
+    "bots/{botId}": {
+      "schema": { "$ref": "#/entities/Bot" },
+      "description": "Bots collection"
+    },
+    "execution_logs/{logId}": {
+      "schema": { "$ref": "#/entities/ExecutionLog" },
+      "description": "Execution logs"
+    },
+    "users/{userId}/chat/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "Chat messages"
+    }
+  }
+}

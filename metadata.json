@@ -1,0 +1,6 @@
+{
+  "name": "BotForge",
+  "description": "Create powerful, free automation bots effortlessly with our intuitive design tool.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
